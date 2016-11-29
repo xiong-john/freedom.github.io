@@ -4,8 +4,8 @@ html{
 }
 
 body{
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: auto;
     background: black;
     color: white;
 }
