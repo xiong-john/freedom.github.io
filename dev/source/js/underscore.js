@@ -87,7 +87,7 @@
   var cb = function(value, context, argCount) {
     if (value == null) return _.identity;
     if (_.isFunction(value)) return optimizeCb(value, context, argCount);
-    if (_.isObject(value)) return _.matcher(value);
+    if (_.isObject(value)) return _.matcher(value); 
     return _.property(value);
   };
   _.iteratee = function(value, context) {

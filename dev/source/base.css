@@ -1,0 +1,25 @@
+body{
+	margin: 50px auto;
+	width:80%;
+	line-height: 1.5;
+}
+pre{
+	border: solid thin #bebebe;
+	border-radius: 5px;
+	background: #ebebeb;
+	overflow: scroll;
+}
+.example{
+	margin: 80px 0;
+	border-top:solid 1px #ebebeb;
+}
+img{
+	width: 100%;
+}
+ol li{
+	margin-top: 5px;
+}
+
+span.mark{
+	color:red;
+}

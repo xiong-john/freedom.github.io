@@ -4,6 +4,7 @@
 		body{
 			margin: 50px auto;
 			width:80%;
+			line-height: 1.5;
 		}
 		pre{
 			border: solid thin #bebebe;
@@ -17,6 +18,13 @@
 		}
 		img{
 			width: 100%;
+		}
+		ol li{
+			margin-top: 5px;
+		}
+
+		span.mark{
+			color:red;
 		}
 	</style>
 </head>
@@ -84,7 +92,8 @@ div.parent#parent
 				height: 50px;
 			}
 			#child1{
-				position: absolute;
+				/*position: absolute;*/
+				float: left;
 				width: 100px;
 			}
 			#child2{
@@ -94,7 +103,9 @@ div.parent#parent
 		</style>
 		<div class="child" id="child1">
 		</div>
-		<div class="child" id="child2"></div>
+		<div class="child" id="child2">
+			这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla
+		</div>
 	</div>
 </div>
 
@@ -147,105 +158,11 @@ div#parent1>div#child3
 	</div>
 </div>
 
-
-<h2>层叠上下文（显示顺序的问题）</h2>
-
-
-
-<div class="example">
-	<h3>example3 层叠顺序</h3>
-	<img src="./../../source/imgs/stacking-order.jpg" alt="层叠顺序图">
-
-	<pre>
-【style】
-	#parent3, #parent div{
-		width: 400px;
-		height: 400px;
-	}
-
-	#parent3{
-		background: black;
-	}
-
-【html】
-
-div#parent3>div#p3-child1+div#p3-child2+div#p3-child3+div#p3-child4+div#p3-child5+div#p3-child6
-	</pre>
-
-	<style>
-		#parent3 div{
-			width: 200px;
-			height: 200px;
-			border: solid thin white;
-		}
-
-		#parent3{
-			background: black;
-			position: absolute;
-		}
-		#parent3-1{
-			width: 10/*0%;
-			height: 200px;
-			background: yellow;
-			position: */absolute;
-		}
-		#p3-child1{
-			position: absolute;
-			background: #b750fb;
-			z-index: -1;
-			margin-left: 20px;
-			margin-top: 20px; 
-		}
-		#p3-child2{
-			background: blue;
-			margin-left: 40px;
-			margin-top: 10px;
-		}
-		#p3-child3{
-			float: left;
-			background: green;
-			margin-top: -100px;
-		}
-		#p3-child4{
-			display: inline-block;
-			background: #50fbb1;
-			margin-left: -100px;
-			margin-top: -100px;
-		}
-		#p3-child5{
-			position: absolute;
-			z-index: 0;
-			background: #fbc450;
-			margin-left: -100px;
-			margin-top: -100px;
-		}
-		#p3-child6{
-			position: absolute;
-			z-index: 1;
-			background: #fb5072;
-			margin-left: -100px;
-			margin-top: -100px;
-		}
-	</style>
-	<div id="parent3">
-		<div id="p3-child1"></div>
-
-		<div id="p3-child2"></div>
-		<div id="p3-child3"></div>
-		<div id="p3-child4"></div>
-		<div id="p3-child5"></div>
-		<div id="p3-child6"></div>
-	</div>
-	<div id="parent3-1">
-		
-	</div>
-</div>
-
 <div>
-	<h3>结论</h3>
-	<ol>
-		<li>当div设置为postion:absolute; z-index为正时，</li>
-	</ol>
+	<h3>参考</h3>
+	<ul>
+		<li><a href="http://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/">http://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/</a></li>
+	</ul>
 </div>
 
 </body>
