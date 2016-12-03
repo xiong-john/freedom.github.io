@@ -1,5 +1,13 @@
 # js面向对象学习
 
+## 为什么要面向对象
+`
+But first, why do we care about inheritance at all? There are primarily two reasons. The first is type convenience. We want the language system to automatically cast references of similar classes. Little type-safety is obtained from a type system which requires the routine explicit casting of object references. This is of critical importance in strongly-typed languages, but it is irrelevant in loosely-typed languages like JavaScript, where object references never need casting.
+
+The second reason is code reuse. It is very common to have a quantity of objects all implementing exactly the same methods. Classes make it possible to create them all from a single set of definitions. It is also common to have objects that are similar to some other objects, but differing only in the addition or modification of a small number of methods. Classical inheritance is useful for this but prototypal inheritance is even more useful.
+`
+两个方面：便利（convenience）和重用(reuse)。
+
 ## 面向对象基础知识
 
 * 特点：抽象类，实例对象。
@@ -108,7 +116,12 @@
 * 高级一点的实现方法
   简单的实现方法的缺点： 
   * 一、没有传统的super方法(this指当前对象， super指父类)
-  * 二、在prototype继承的时候new 出来的原型对象会产生多余的constructor， 并将其赋予被继承的类； （所以 a.constructor == B; //true, a.constructor == A; //false）
+    解决的方式，使用JS的`apply`/`call`方法，将父类的构造函数绑定在当前类使用；
+
+
+
+  * 二、在prototype继承的时候new 出来的原型对象会产生多余的constructor， 并将其赋予被继承的类； 
+    （所以 a.constructor == B; //true, a.constructor == A; //false）
 
    * Object.prototype.constructor 
     所有对象都会从它的原型上继承一个 constructor 属性：
@@ -124,9 +137,13 @@
 
 
 
+
+
 ### 三、多态
 
 
 http://tobyho.com/2010/11/22/javascript-constructors-and/
 
 http://purplebamboo.github.io/2014/07/13/javascript-oo-class/
+
+http://javascript.crockford.com/inheritance.html
