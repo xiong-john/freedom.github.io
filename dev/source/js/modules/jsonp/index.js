@@ -18,7 +18,7 @@ class Jsonp {
 		},
 	}) {
 		this.options = options;
-		let resultUrl = this.makeUrl('asdfasf', options.data, options.success);
+		let resultUrl = this.makeUrl(options.url, options.data, options.success);
 		this.makeScript(resultUrl);
 	}
 
@@ -40,7 +40,7 @@ class Jsonp {
 		for (let i in data) {
 			query += '&' + i + '=' + data[i];
 		}
-		return url.match(/\?/) ? '?' + query : query;
+		return url + (url.match(/\?/) ? query : '?' + query);
 	}
 }
 
