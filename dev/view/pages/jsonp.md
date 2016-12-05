@@ -9,3 +9,6 @@ view -》jsonp组件 -》 后端router -》 处理层 -》 数据库
 
 
 ## 第一步， 写jsonp组件
+get get方法
+
+使用方法

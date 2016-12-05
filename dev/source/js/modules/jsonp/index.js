@@ -1,8 +1,11 @@
 // 创建script对象
 // 拼接url?cb=test&a=2&b=9
+var roots = typeof window  == 'undefined' ? global : window ;
 class Jsonp {
 	constructor(a, b) {
+		roots._jsonp = roots._jsonp || {
 
+		};
 	}
 
 	get(options = {
@@ -32,7 +35,7 @@ class Jsonp {
 	makeUrl(url, data, success = function() {}) {
 		if (!url) return '';
 		let cbName = 'cb' + Math.ceil(Math.random() * 1000);
-		this[cbName] = success;
+		roots[cbName] = success;
 		let query = 'cb=jsonp.' + cbName;
 		for (let i in data) {
 			query += '&' + i + '=' + data[i];
