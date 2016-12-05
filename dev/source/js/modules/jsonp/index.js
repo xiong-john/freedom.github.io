@@ -14,6 +14,7 @@ class Jsonp {
 
 		},
 	}) {
+		this.options = options;
 		let resultUrl = this.makeUrl('asdfasf', options.data, options.success);
 		this.makeScript(resultUrl);
 	}
