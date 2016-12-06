@@ -15,5 +15,3 @@
 当然，我也开始尝试其他概念 —— AMD模块化requireJs/sass模块化。同时公司使用的git也是我之前没用过的。
 
 最开始是html/scss/js
-
-

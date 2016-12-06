@@ -1,0 +1,38 @@
+<h2 id="-">函数预编译</h2>
+<ul>
+<li>函数声明语句和函数定义表达式</li>
+</ul>
+<p>声明 </p>
+<pre><code>function a(){
+
+}
+</code></pre><p>表达式</p>
+<pre><code>var a = function(){
+
+}
+</code></pre><ul>
+<li><p>函数预编译
+<code>尽管函数声明语句和函数定义表达式包含相同的函数名，但是二者仍然不同。两种方式都创建了新的函数对象，但函数声明语句中的函数名是一个变量名，变量指向函数对象。和通过var声明变量一样，函数定义语句中的函数被显式地“提前”到了脚本或函数的顶部。因此它们在整个脚本或函数内都是可见的。使用var的话只有变量声明提前了——变量的初始化代码仍然在原来的位置。然而使用函数声明语句的话，函数名称和函数体均提前：脚本中的所有函数和函数中所有的嵌套的函数都会在当前上下文中其他代码之前声明。也就是所，课可以在声明一个javascript函数之前调用它。</code>
+—— 《Javascript权威指南》</p>
+</li>
+<li><p>实践
+*</p>
+<pre><code>      var a = 1;
+      function a (){};
+
+      consle.log(a); // 1;
+</code></pre><ul>
+<li><pre><code>     console.log(a); // function a(){};
+
+     function a(){}
+</code></pre></li>
+<li><pre><code>     console.log(a); //undefined;
+
+     var a = function(){}
+</code></pre></li>
+</ul>
+</li>
+<li><p>变量提升；
+  作用域内不论在哪儿定义的变量都会被提前到作用域顶部声明，而在定义处赋初始值。</p>
+</li>
+</ul>

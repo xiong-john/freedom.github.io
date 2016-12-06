@@ -1,13 +1,21 @@
 const gulp = require('gulp'),
 	connect = require('gulp-connect'),
-	wwwPath = './';
+	markdown = require('gulp-markdown'),
+	wwwPath = './',
+	viewPath = './dev/view/',
+	pagePath = viewPath + 'pages/'
+	mdPath = viewPath + 'md/';
+	
 const args = require('minimist')(process.argv.slice(2));
 
-//base需要的内容
+gulp.task('watch', function () {
+	
+	gulp.watch(mdPath + '/*.md', function () {
+		gulp.run('markdown');
+	});
+});
 
-//1.gulp default ， 根据传参来选择
-
-gulp.task('default', function(){
+gulp.task('default', ['server', 'watch'],function(){
 	console.log(args);
 });
 
@@ -17,4 +25,10 @@ gulp.task('server', function(){
         port: 8001 ,
         livereload: true
     });
+});
+
+gulp.task('markdown', function () {
+	gulp.src(mdPath + '/*.md')
+		.pipe(markdown())
+		.pipe(gulp.dest(pagePath));
 });

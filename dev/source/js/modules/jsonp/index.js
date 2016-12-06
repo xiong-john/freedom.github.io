@@ -2,22 +2,22 @@
 // 拼接url?cb=test&a=2&b=9
 var roots = typeof window  == 'undefined' ? global : window ;
 class Jsonp {
-	constructor(a, b) {
-		roots._jsonp = roots._jsonp || {
 
-		};
+	constructor(a, b) {
+		roots._jsonp = roots._jsonp || {};
+		this.options = {
+			data: {
+
+			},
+			success: function (data) {
+				console.log(data)
+			},
+			url: '/',
+		}
 	}
 
-	get(options = {
-		url: '/',
-		data: {
-
-		},
-		success: function() {
-
-		},
-	}) {
-		this.options = options;
+	get(options) {
+		options = this.options = Object.assign(this.options , options);
 		let resultUrl = this.makeUrl(options.url, options.data, options.success);
 		this.makeScript(resultUrl);
 	}
@@ -30,13 +30,24 @@ class Jsonp {
 		let script = document.createElement('script');
 		script.src = url;
 		document.body.appendChild(script);
+		script.onerror = function (e) {
+			console.log(e)
+		}
 	}
 
-	makeUrl(url, data, success = function() {}) {
+	makeUrl(url, data, success) {
 		if (!url) return '';
 		let cbName = 'cb' + Math.ceil(Math.random() * 1000);
-		roots[cbName] = success;
-		let query = 'cb=jsonp.' + cbName;
+		_jsonp[cbName] = function (data) {
+			try{
+				success(data);
+			}catch(e){
+				// console.log(e)
+			}finally{
+				delete _jsonp[cbName];
+			}
+		};
+		let query = 'cb=_jsonp.' + cbName;
 		for (let i in data) {
 			query += '&' + i + '=' + data[i];
 		}

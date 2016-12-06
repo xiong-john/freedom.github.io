@@ -1,3 +1,2 @@
 const cfgPath = './cfg/gulp/';
-
-var base = require(cfgPath + 'base.js');
+var base = require(cfgPath + 'base');
