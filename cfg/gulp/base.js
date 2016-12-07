@@ -29,6 +29,13 @@ gulp.task('server', function(){
 
 gulp.task('markdown', function () {
 	gulp.src(mdPath + '/*.md')
-		.pipe(markdown())
+		.pipe(markdown({
+			highlight: function (code, lang, callback) {
+			    require('pygmentize-bundled')({ lang: lang, format: 'html' },  , function (err, result) {
+			      callback(err, result.toString());
+			    });
+			},
+			gfm: true
+		}))
 		.pipe(gulp.dest(pagePath));
 });

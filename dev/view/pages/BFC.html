@@ -1,52 +1,46 @@
 <html>
 <head>
-	<style>
-		body{
-			margin: 50px auto;
-			width:80%;
-			line-height: 1.5;
-		}
-		pre{
-			border: solid thin #bebebe;
-			border-radius: 5px;
-			background: #ebebeb;
-			overflow: scroll;
-		}
-		.example{
-			margin: 80px 0;
-			border-top:solid 1px #ebebeb;
-		}
-		img{
-			width: 100%;
-		}
-		ol li{
-			margin-top: 5px;
-		}
-
-		span.mark{
-			color:red;
-		}
-	</style>
+    <style>
+        body{
+            margin: 50px auto;
+            width:80%;
+        }
+        pre{
+            border: solid thin #bebebe;
+            border-radius: 5px;
+            background: #ebebeb;
+        }
+        .example{
+            margin: 5px 0;
+            border-top:solid 1px #ebebeb;
+        }
+    </style>
 </head>
 <body>
 
 <h1>
-	这篇文章研究一下 BFC（block formatting context）	
-</h1>
- 
-<h2>BFC（区块格式化上下文，互相作用的问题）</h2>
+    这篇文章研究一下 BFC（block formatting context）<br></h1>
+
+<h2>html源码</h2>
+
+
+
+
+<h2>BFC概念</h2>
+
+<h3>区块格式化上下文：</h3>
 <p>
-	当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这个环境中按照一定规则进行布局。一个环境中的元素不会影响到其它环境中的布局。比如浮动元素会形成BFC，浮动元素内部子元素的主要受该浮动元素影响，两个浮动元素之间是互不影响的。这里有点类似一个BFC就是一个独立的行政单位的意思。一个大的行政单位可以包含若干个小的行政单位。
+    当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这个环境中按照一定规则进行布局。一个环境中的元素不会影响到其它环境中的布局。比如浮动元素会形成BFC，浮动元素内部子元素的主要受该浮动元素影响，两个浮动元素之间是互不影响的。这里有点类似一个BFC就是一个独立的行政单位的意思。一个大的行政单位可以包含若干个小的行政单位。
 </p>
 
 <h3>如何形成BFC</h3>
 <p>
-	<ol>
-		<li>float的值不为none</li>
-		<li>overflow的值不为visible。</li>
-		<li>display的值为table-cell, table-caption, inline-block中的任何一个。</li>
-		<li>position的值不为relative和static。</li>
-	</ol>
+    <ol>
+        <li>float的值不为none</li>
+        <li>overflow的值不为visible。</li>
+        <li>display的值为table-cell, table-caption, inline-block中的任何一个。</li>
+        <li>position的值不为relative和static。</li>
+    </ol>
 </p>
 
 
@@ -56,66 +50,63 @@
 【style】
 
 #parent{
-	width: 100%;
-	height: 50px;
+    width: 100%;
+    height: 50px;
 }
 .child{
-	border: solid thin black;
-	height: 50px;
+    border: solid thin black;
+    height: 50px;
 }
 #child1{
-	position: absolute;
-	width: 100px;
+    position: absolute;
+    width: 100px;
 }
 #child2{
-	width: 90%;
-	margin-left: 100px;
+    width: 90%;
+    margin-left: 100px;
 }
 
 【html】
 
 div.parent#parent
-	div.child#child1
-	div.child#child2
+    div.child#child1
+    div.child#child2
 </pre>
 
 
-	
-	<div id="parent" class="test1 parent">
-		<style>
-			#parent{
-				width: 100%;
-				height: 50px;
-			}
-			.child{
-				border: solid thin black;
-				height: 50px;
-			}
-			#child1{
-				/*position: absolute;*/
-				float: left;
-				width: 100px;
-			}
-			#child2{
-				width: 90%;
-				margin-left: 100px;
-			}
-		</style>
-		<div class="child" id="child1">
-		</div>
-		<div class="child" id="child2">
-			这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla这里有一堆bla
-		</div>
-	</div>
+
+    <div id="parent" class="test1 parent">
+        <style>
+            #parent{
+                width: 100%;
+                height: 50px;
+            }
+            .child{
+                border: solid thin black;
+                height: 50px;
+            }
+            #child1{
+                position: absolute;
+                width: 100px;
+            }
+            #child2{
+                width: 90%;
+                margin-left: 100px;
+            }
+        </style>
+        <div class="child" id="child1">
+        </div>
+        <div class="child" id="child2"></div>
+    </div>
 </div>
 
 <p>
-	<h3>解释：</h3> 
-	<div>面试遇到了一个题目：左边的div宽度为100px， 右边的紧靠着它，宽度需要随浏览器自适应。</div>
-	<div>将左边的设置为BFC模式，让它不影响其他布局</div>
-	
-	
-	
+    <h3>解释：</h3> 
+    <div>面试遇到了一个题目：左边的div宽度为100px， 右边的紧靠着它，宽度需要随浏览器自适应。</div>
+    <div>将左边的设置为BFC模式，让它不影响其他布局</div>
+
+
+
 
 </p>
 
@@ -123,51 +114,39 @@ div.parent#parent
 <div class="example">
 <h3>example2</h3>
 <pre>
-【style】
-#parent1{
-	border: solid thin;
-	width: 100px;
-}
-#child3{
-	border: solid red;
-	width: 100px;
-	height: 50px;
-	position: absolute;
-}
+    【style】
+    #parent1{
+        border: solid thin;
+        width: 100px;
+    }
+    #child3{
+        border: solid red;
+        width: 100px;
+        height: 50px;
+        position: absolute;
+    }
 
-【html】
-div#parent1>div#child3
+    【html】
+    div#parent1&gt;div#child3
 </pre>
 
-	<style>
-		#parent1{
-			border: solid thin;
-			width: 100px;
-		}
-		#child3{
-			border: solid red;
-			width: 100px;
-			height: 50px;
-			position: absolute;
-		}
-	</style>
-	<div id="parent1">
-		<div id="child3">
-			
-		</div>
-	</div>
-</div>
+    <style>
+        #parent1{
+            border: solid thin;
+            width: 100px;
+        }
+        #child3{
+            border: solid red;
+            width: 100px;
+            height: 50px;
+            position: absolute;
+        }
+    </style>
+    <div id="parent1">
+        <div id="child3">
 
-<div>
-	<h3>参考</h3>
-	<ul>
-		<li>
-			<a href="http://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/">http://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/</a>
-		</li>
-		<li>
-			<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context">https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context</a>
-		</li>
-	</ul>
+        </div>
+    </div>
 </div>
 
 </body>
