@@ -1,43 +1,37 @@
-<html><head></head><body><h1 id="-">如何解决回调函数的绑定</h1>
+<h1 id="-">如何解决回调函数的绑定</h1>
 <p>问题描述：
  在setTimeout/ajax等异步执行的如果获取到调用者this（执行上下文);</p>
 <ul>
 <li><p>例一</p>
-<pre><code><div class="highlight"><pre>   <span class="kd">function</span> <span class="nx">A</span><span class="p">(){</span>
-       <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-           <span class="kd">function</span> <span class="nx">c</span><span class="p">(){</span>
-               <span class="c1">//调用A的实例</span>
-           <span class="p">};</span>
-           <span class="nx">c</span><span class="p">();</span>
-       <span class="p">}</span>
-   <span class="p">}</span>
+<pre><code>   function A(){
+       this.b = function(){
+           function c(){
+               //调用A的实例
+           };
+           c();
+       }
+   }
 
-   <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
-   <span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">();</span>
-</pre></div>
-
+   let a = new A();
+   a.b();
 </code></pre></li>
 <li><p>例二
 ```</p>
 </li>
 </ul>
-<pre><code><div class="highlight"><pre> <span class="kd">function</span> <span class="nx">C</span><span class="p">(){</span>
-     <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-          <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-              <span class="c1">//调用C的实例</span>
-          <span class="p">});</span>
-      <span class="p">}</span>
- <span class="p">}</span> 
+<pre><code> function C(){
+     this.b = function(){
+          setTimeout(function(){
+              //调用C的实例
+          });
+      }
+ } 
 
- <span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>
- <span class="nx">c</span><span class="p">.</span><span class="nx">b</span><span class="p">();</span>
-</pre></div>
-
+ let c = new C();
+ c.b();
 </code></pre><p> ```</p>
 <h2 id="-">分析</h2>
-<pre><code><div class="highlight"><pre><span class="err">这是一个有关执行上下文的问题。</span>
-</pre></div>
-
+<pre><code>这是一个有关执行上下文的问题。
 </code></pre><ul>
 <li>在函数内部，this的值取决于函数是如何调用的。</li>
 <li>对象方法中的 this
@@ -53,18 +47,14 @@
 <li>没有通过绑定的function的执行上下文都是window。</li>
 </ul>
 <h2 id="-let-that-this-">方法一： let that = this;</h2>
-<pre><code><div class="highlight"><pre><span class="err">这个方法绕过了执行上下文，利用了闭包的性质。去作用域链上找</span><span class="nx">that</span><span class="err">执行函数。</span>
-</pre></div>
-
+<pre><code>这个方法绕过了执行上下文，利用了闭包的性质。去作用域链上找that执行函数。
 </code></pre><h2 id="-bind">方法二： bind</h2>
-<pre><code><div class="highlight"><pre><span class="err">将函数绑定在需要的对象上，无论如何被调用都</span>
-</pre></div>
-
+<pre><code>将函数绑定在需要的对象上，无论如何被调用都
 </code></pre><h2 id="-es6">方法三： ES6</h2>
+<p> The value of this is dependent upon two things: The type of code being executed (i.e., global, function, or eval) and the caller of that code.</p>
 <ul>
 <li>参考<ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this</a></li>
 </ul>
 </li>
 </ul>
-</body></html>

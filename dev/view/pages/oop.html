@@ -1,4 +1,4 @@
-<html><head></head><body><h1 id="js-">js面向对象学习</h1>
+<h1 id="js-">js面向对象学习</h1>
 <h2 id="-">为什么要面向对象</h2>
 <p>`
 But first, why do we care about inheritance at all? There are primarily two reasons. The first is type convenience. We want the language system to automatically cast references of similar classes. Little type-safety is obtained from a type system which requires the routine explicit casting of object references. This is of critical importance in strongly-typed languages, but it is irrelevant in loosely-typed languages like JavaScript, where object references never need casting.</p>
@@ -33,78 +33,70 @@ But first, why do we care about inheritance at all? There are primarily two reas
 <h2 id="js-">JS实现各种面向对象特性的方式</h2>
 <h3 id="-">一、封装</h3>
 <p>  JS根据作用域链，可以使用闭包将私有成员隐藏。构造函数是本身。</p>
-<pre><code><div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">A</span><span class="p">(</span><span class="nx">c</span><span class="p">){</span>
-    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">||</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">getB</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-      <span class="k">return</span> <span class="nx">b</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">setB</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
-      <span class="nx">b</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+<pre><code>  function A(c){
+    var a = 1;
+    var b = 2;
+    this.c = c || 2;
+    this.getB = function(){
+      return b;
+    };
+    this.setB = function(val){
+      b = val;
+      return this;
+    }
+  }
 
-  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
-  <span class="nx">a</span><span class="p">.</span><span class="nx">c</span><span class="p">;</span> <span class="c1">//4;</span>
-  <span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span> <span class="c1">//undefined;</span>
-  <span class="nx">a</span><span class="p">.</span><span class="nx">getB</span><span class="p">();</span> <span class="c1">//2</span>
-</pre></div>
-
+  var a = new A();
+  a.c; //4;
+  a.b; //undefined;
+  a.getB(); //2
 </code></pre><h3 id="-">二、继承</h3>
 <ul>
 <li><p>最简单的实现方法</p>
 <p>派生类继承基类的属性和行为。利用prototype（原型链， 所有实例共享一个原型对象，修改原型对象则继承对象都改变）可以实现继承，也可以自己用遍历拷贝的方式来实现。</p>
 </li>
 </ul>
-<pre><code><div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">A</span><span class="p">(){</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="p">}</span>
+<pre><code>  function A(){
+    this.a = 1;
+    this.b = 2;
+  }
 
-  <span class="kd">function</span> <span class="nx">B</span><span class="p">(){</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-  <span class="p">}</span>
+  function B(){
+    this.c = 3;
+    this.d = 5;
+  }
 
-  <span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
+  A.prototype = new B();
 
-  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
-  <span class="nx">a</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span> <span class="c1">//1;</span>
-  <span class="nx">a</span><span class="p">.</span><span class="nx">c</span><span class="p">;</span> <span class="c1">//3;</span>
-</pre></div>
-
+  var a = new A();
+  a.a; //1;
+  a.c; //3;
 </code></pre><p>这样继承是可枚举的变量：</p>
-<pre><code><div class="highlight"><pre>  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="c1">//a, b, c, d;</span>
-</pre></div>
-
+<pre><code>  for(var i in a) {
+    console.log(i);
+  }
+  //a, b, c, d;
 </code></pre><ul>
 <li><p>被继承的属性需要非常注意，因为如果属性是引用类型的话，在子类实例修改被继承的该属性后，会导致所有子类实例都改变：</p>
-<pre><code><div class="highlight"><pre><span class="kd">function</span> <span class="nx">A</span><span class="p">(){</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
+<pre><code>function A(){
+this.a = 1;
+this.b = 2;
+}
 
-<span class="kd">function</span> <span class="nx">B</span><span class="p">(){</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">f</span> <span class="o">=</span> <span class="p">{};</span> <span class="c1">//引用类型</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
-<span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
+function B(){
+this.c = 3;
+this.d = 5;
+this.f = {}; //引用类型
+}
+var b = new B();
+A.prototype = new B();
 
-<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
-<span class="kd">var</span> <span class="nx">a1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
-<span class="nx">a</span><span class="p">.</span><span class="nx">f</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+var a = new A();
+var a1 = new A();
+a.f.c = 1;
 
-<span class="nx">a</span><span class="p">.</span><span class="nx">f</span><span class="p">;</span><span class="c1">// {c:1}</span>
-<span class="nx">a1</span><span class="p">.</span><span class="nx">f</span><span class="p">;</span> <span class="c1">//{c:1}</span>
-</pre></div>
-
+a.f;// {c:1}
+a1.f; //{c:1}
 </code></pre></li>
 </ul>
 <p>注意： 按原型链，下一层的原型对象会覆盖上一层的原型对象的属性和方法。</p>
@@ -123,13 +115,11 @@ But first, why do we care about inheritance at all? There are primarily two reas
 <li>Object.prototype.constructor 
 所有对象都会从它的原型上继承一个 constructor 属性：</li>
 </ul>
-<pre><code><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">))</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
-<span class="p">}</span>
-</pre></div>
-
+<pre><code>function Person(name){
+    if (!(this instanceof Person))
+        return new Person(name)
+    this.name = name
+}
 </code></pre><p>--- 防止被直接当函数使用而创建全局变量</p>
 </li>
 </ul>
@@ -137,4 +127,3 @@ But first, why do we care about inheritance at all? There are primarily two reas
 <p><a href="http://tobyho.com/2010/11/22/javascript-constructors-and/">http://tobyho.com/2010/11/22/javascript-constructors-and/</a></p>
 <p><a href="http://purplebamboo.github.io/2014/07/13/javascript-oo-class/">http://purplebamboo.github.io/2014/07/13/javascript-oo-class/</a></p>
 <p><a href="http://javascript.crockford.com/inheritance.html">http://javascript.crockford.com/inheritance.html</a></p>
-</body></html>

@@ -1,4 +1,4 @@
-<html><head></head><body><h1 id="-">浏览器渲染顺序</h1>
+<h1 id="-">浏览器渲染顺序</h1>
 <h2 id="-">渲染顺序图</h2>
 <p><img src="http://coolshell.cn//wp-content/uploads/2013/05/Render-Process.jpg" alt="图片">
 <img src="./../../source/imgs/stacking-order.jpg" alt=""></p>
@@ -22,15 +22,13 @@
 <li>repaint 局部改变（）</li>
 <li>Reflow 被改变了布局，整个render tree要重新计算。成本高.</li>
 </ul>
-<pre><code><div class="highlight"><pre><span class="err">当你增加、删除、修改</span><span class="nx">DOM</span><span class="err">结点时，会导致</span><span class="nx">Reflow</span><span class="err">或</span><span class="nx">Repaint</span>
-<span class="err">当你移动</span><span class="nx">DOM</span><span class="err">的位置，或是搞个动画的时候。</span>
-<span class="err">当你修改</span><span class="nx">CSS</span><span class="err">样式的时候。</span>
-<span class="err">当你</span><span class="nx">Resize</span><span class="err">窗口的时候（移动端没有这个问题），或是滚动的时候。</span>
-<span class="err">当你修改网页的默认字体</span>
+<pre><code>当你增加、删除、修改DOM结点时，会导致Reflow或Repaint
+当你移动DOM的位置，或是搞个动画的时候。
+当你修改CSS样式的时候。
+当你Resize窗口的时候（移动端没有这个问题），或是滚动的时候。
+当你修改网页的默认字体
 
-<span class="err">注：</span> <span class="nx">display</span><span class="o">:</span><span class="nx">none</span><span class="err">会触发</span><span class="nx">reflow</span><span class="err">，而</span><span class="nx">visibility</span><span class="o">:</span><span class="nx">hidden</span><span class="err">只会触发</span><span class="nx">repaint</span><span class="err">，因为没有发现位置变化。</span>
-</pre></div>
-
+注： display:none会触发reflow，而visibility:hidden只会触发repaint，因为没有发现位置变化。
 </code></pre><ul>
 <li>减少reflow/repaint
 ```</li>
@@ -43,4 +41,3 @@
 <li>千万不要使用table布局;
 ```</li>
 </ul>
-</body></html>

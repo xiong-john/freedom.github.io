@@ -2,6 +2,13 @@
 
 //TODO 文章目录结构
 //分页，相关，标题，链接等
+const fs = require('fs');
+
+function getFile(url){
+    if(url) return fs.readFileSync(url, 'utf8');
+    return '';
+}
+
 class Menu{
 	constructor (){
 		this.pagePath = './dev/view/pages';
@@ -34,13 +41,15 @@ class Menu{
 			gulp = require('gulp'),
 			read = require('node-read'),
 			inject = require('gulp-inject-string'),
+			header = getFile('./dev/view/header.html'),
+			footer = getFile('./dev/view/footer.html'),
 			pagePath = './';
 
 		read(host + url, function(err, article, res) {
 			// console.log(article.content)
 			if(err) {
 				gulp.src(pagePath + url)
-					.pipe(inject.wrap('<html><head></head><body>','</body></html>'))
+					.pipe(inject.wrap(header,header))
 					.pipe(gulp.dest(pagePath + '/dev/view/pages'));
 			}
 		   callback();

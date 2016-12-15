@@ -65,5 +65,7 @@
 	将函数绑定在需要的对象上，无论如何被调用都
 ## 方法三： ES6
 
+ The value of this is dependent upon two things: The type of code being executed (i.e., global, function, or eval) and the caller of that code.
+
 * 参考
  * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this
