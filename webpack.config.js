@@ -9,9 +9,9 @@ const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
-  app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build'),
-  style: path.join(__dirname, 'app/main.css'),
+  app: path.join(__dirname, 'index'),
+  build: path.join(__dirname, 'public'),
+  style: path.join(__dirname, 'index/main.css'),
   test: path.join(__dirname, 'tests')
 };
 const ENV = {
@@ -44,7 +44,7 @@ const common = {
   plugins: [
     new HtmlwebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'Kanban app',
+      title: '理解自己，理解世界',
       appMountId: 'app',
       inject: false
     })
